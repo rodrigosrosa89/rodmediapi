@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: rodmedapi
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost/rodmedapidb
+    username: postgres
+    password: teste123
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+hibernate:
+  dialect: org.hibernate.dialect.HSQLDialect
