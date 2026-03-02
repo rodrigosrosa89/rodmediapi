@@ -1,4 +1,4 @@
-package rodmed.voll.api.model.enums;
+package rodmed.voll.api.enums;
 
 public enum EspecialidadeEnum {
 

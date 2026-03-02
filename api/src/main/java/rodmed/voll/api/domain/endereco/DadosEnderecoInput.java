@@ -1,9 +1,9 @@
-package rodmed.voll.api.model;
+package rodmed.voll.api.domain.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record DadosEndereco(
+public record DadosEnderecoInput(
         @NotBlank
         String logradouro,
 

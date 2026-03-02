@@ -1,4 +1,4 @@
-package rodmed.voll.api.model.entity;
+package rodmed.voll.api.domain.medico;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -6,12 +6,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import rodmed.voll.api.model.DadosCadastroMedicoInput;
-import rodmed.voll.api.model.enums.EspecialidadeEnum;
+import rodmed.voll.api.domain.endereco.EnderecoEntity;
+import rodmed.voll.api.enums.EspecialidadeEnum;
 
 @Table(name = "medico")
 @Entity(name = "Medico")
@@ -35,6 +36,8 @@ public class MedicoEntity {
 
     private EspecialidadeEnum especialidade;
 
+    private Boolean ativo;
+
     @Embedded
     private EnderecoEntity endereco;
 
@@ -45,5 +48,17 @@ public class MedicoEntity {
         this.crm = dadosCadastroMedicoInput.crm();
         this.especialidade = dadosCadastroMedicoInput.especialidade();
         this.endereco = new EnderecoEntity(dadosCadastroMedicoInput.endereco());
+        this.ativo = true;
     }
+
+    public void atualizar(@Valid DadosAtualizacaoMedicoInput dados) {
+        this.nome = dados.nome() != null ? dados.nome() : this.nome;
+        this.telefone = dados.telefone() != null ? dados.telefone() : this.telefone;
+        this.endereco = this.endereco.atualizar(dados.endereco());
+    }
+
+    public void exclusaoLogica() {
+        this.ativo = false;
+    }
+
 }
