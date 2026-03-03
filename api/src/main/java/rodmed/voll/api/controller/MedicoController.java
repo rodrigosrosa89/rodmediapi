@@ -1,5 +1,6 @@
 package rodmed.voll.api.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -74,7 +75,7 @@ public class MedicoController {
         if (medico.isPresent()) {
             return ResponseEntity.ok(new DadosDetalhamentoMedico(medico.get()));
         } else {
-            throw new RuntimeException("Médico não encontrado");
+            throw new EntityNotFoundException("Médico não encontrado");
         }
     }
 
