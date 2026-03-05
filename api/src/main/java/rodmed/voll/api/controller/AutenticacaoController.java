@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import rodmed.voll.api.domain.usuario.DadosAutenticacao;
 import rodmed.voll.api.domain.usuario.Usuario;
+import rodmed.voll.api.infra.security.DadosTokenJWT;
 import rodmed.voll.api.infra.security.TokenService;
 
 @RestController
@@ -26,6 +27,8 @@ public class AutenticacaoController {
     public ResponseEntity efetuarLogin(@RequestBody DadosAutenticacao dados) {
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var autenticacao = authenticationManager.authenticate(token);
-        return ResponseEntity.ok(tokenService.gerarToken((Usuario) autenticacao.getPrincipal()));
+
+        var tokenJwt = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
+        return ResponseEntity.ok(new DadosTokenJWT(tokenJwt));
     }
 }
