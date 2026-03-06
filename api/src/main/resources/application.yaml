@@ -1,6 +1,9 @@
 spring:
   application:
     name: rodmedapi
+  batch:
+    jdbc:
+      initialize-schema: always
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost/rodmedapidb
